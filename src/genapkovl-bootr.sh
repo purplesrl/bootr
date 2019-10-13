@@ -44,6 +44,8 @@ nano
 openvpn
 EOF
 
+echo $ALPINE_REPO >> "$tmp/etc/apk/repositories"
+
 rc_add devfs sysinit
 rc_add dmesg sysinit
 rc_add mdev sysinit

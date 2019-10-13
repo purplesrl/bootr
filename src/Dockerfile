@@ -28,6 +28,8 @@ WORKDIR /build
 RUN abuild-keygen -i -a \
     && git clone git://git.alpinelinux.org/aports
 
+ENV ALPINE_REPO http://dl-cdn.alpinelinux.org/alpine/v$ALPINE_VERSION/main/
+
 COPY --chown=build:abuild mkimg.bootr.sh /build/aports/scripts/mkimg.bootr.sh
 COPY --chown=build:abuild genapkovl-bootr.sh /build/aports/scripts/genapkovl-bootr.sh
 COPY --chown=build:abuild mkiso.bootr.sh /build/aports/scripts/mkiso.bootr.sh
