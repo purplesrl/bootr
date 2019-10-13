@@ -29,8 +29,9 @@ RUN abuild-keygen -i -a \
     && git clone git://git.alpinelinux.org/aports
 
 COPY --chown=build:abuild mkimg.bootr.sh /build/aports/scripts/mkimg.bootr.sh
+COPY --chown=build:abuild genapkovl-bootr.sh /build/aports/scripts/genapkovl-bootr.sh
 
-RUN chmod +x /build/aports/scripts/mkimg.bootr.sh \
+RUN chmod +x /build/aports/scripts/* \
     && mkdir -p /build/iso \
     && /build/aports/scripts/mkimage.sh --tag bootr \
 	--outdir /build/iso \
