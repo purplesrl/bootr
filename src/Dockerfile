@@ -30,11 +30,10 @@ RUN abuild-keygen -i -a \
 
 COPY --chown=build:abuild mkimg.bootr.sh /build/aports/scripts/mkimg.bootr.sh
 COPY --chown=build:abuild genapkovl-bootr.sh /build/aports/scripts/genapkovl-bootr.sh
+COPY --chown=build:abuild mkiso.bootr.sh /build/aports/scripts/mkiso.bootr.sh
 
 RUN chmod +x /build/aports/scripts/* \
-    && mkdir -p /build/iso \
-    && /build/aports/scripts/mkimage.sh --tag bootr \
-	--outdir /build/iso \
-	--arch $ARCH \
-	--repository http://dl-cdn.alpinelinux.org/alpine/v$ALPINE_VERSION/main/ \
-	--profile bootr
+    && mkdir -p /build/iso
+
+CMD ["/build/aports/scripts/mkiso.bootr.sh"]
+

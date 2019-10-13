@@ -1,3 +1,3 @@
 #!/bin/bash
 docker build -t bootr:latest src
-docker run --rm --name bootr -ti bootr:latest /bin/sh
+docker run --cpus="4" --rm --name bootr -v $(pwd)/iso:/build/iso -ti bootr:latest 

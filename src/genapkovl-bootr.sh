@@ -1,10 +1,6 @@
 #!/bin/sh -e
 
-HOSTNAME="$1"
-if [ -z "$HOSTNAME" ]; then
-	echo "usage: $0 hostname"
-	exit 1
-fi
+HOSTNAME="bootr-$ALPINE_VERSION-$ARCH"
 
 cleanup() {
 	rm -rf "$tmp"
