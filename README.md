@@ -54,3 +54,6 @@ If these configuration files exists, they will be copied in place of the ones th
 
 These are useful in case you are using an USB stick and do not want to rebuild your ISO.
 
+## To do
+
+Add pppoe and wireguard support
