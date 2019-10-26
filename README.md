@@ -1,36 +1,50 @@
 # bootr
 A rescue OS based on Alpine Linux
 
-Configurations
+## Configuration
 
-Authorized keys:
+### Authorized keys
 
 When the ISO a generated, an RSA keypair will also be generated, the private key can be found in the iso directory. You can use this private key to login into the system as root.
 
 If you want to replace the existing authorized_keys file, you can place your custom file in:
 
+```
 configs/authorized_keys
+```
 
-Startup scripts:
+### Startup Scripts
 
+```
 configs/startup/*
+```
 
-Networking configuration:
+### Network Configuration Files
+
+```
 
 configs/network/*
 
-Openvpn servers:
+```
 
+### Openvpn Configuration Files
+
+```
 configs/openvpn/*
+```
 
-Alternative configs on the CD-DROM, which normally should be mounted as /media/cdrom:
+## Alternative Configuration
 
-If these configs exists, they will be copied in place of the ones that were initially included:
+Normally the ISO should be mounted as /media/cdrom, the bootstrap script will check for configuration files there.
 
+If these configuration files exists, they will be copied in place of the ones that were initially included:
+
+```
 /media/cdrom/configs/authorized_keys
 /media/cdrom/configs/network/
 /media/cdrom/configs/openvpn/
 /media/cdrom/configs/startup/
+```
 
 These are useful in case you are using an USB stick and do not want to rebuild your ISO.
 
