@@ -6,11 +6,16 @@ AUTHORIZED_KEYS="/root/.ssh/authorized_keys"
 cp $BOOTR_CONFDIR_LOCAL/authorized_keys $AUTHORIZED_KEYS
 cp $BOOTR_CONFDIR_LOCAL/openvpn/* /etc/openvpn/
 cp $BOOTR_CONFDIR_LOCAL/network/* /etc/network/
+
 cp $BOOTR_CONFDIR_CDROM/openvpn/* /etc/openvpn/
 cp $BOOTR_CONFDIR_CDROM/network/* /etc/network/
+cp $BOOTR_CONFDIR_CDROM/startup/* $BOOTR_CONFDIR_LOCAL/startup/
 cp $BOOTR_CONFDIR_CDROM/authorized_keys $AUTHORIZED_KEYS
 
 chmod 0600 $AUTHORIZED_KEYS
+
+chmod +x $BOOTR_CONFDIR_LOCAL/startup/*
+run-parts $BOOTR_CONFDIR_LOCAL/startup
 
 rc-service networking restart
 rc-service openvpn restart
