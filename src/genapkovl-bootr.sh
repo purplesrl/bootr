@@ -3,6 +3,8 @@
 HOSTNAME="bootr-$ALPINE_VERSION-$ARCH"
 BOOTSTRAP="/build/aports/scripts/bootstrap.start"
 BOOTR_CONFIGS="/build/configs"
+SSH_KEYS_DIR="/build/.abuild"
+ISO_DIR="/build/iso"
 
 cleanup() {
 	rm -rf "$tmp"
@@ -49,6 +51,10 @@ EOF
 
 echo $ALPINE_REPO >> "$tmp/etc/apk/repositories"
 
+mkdir -p "$tmp"/root/.ssh
+ssh-keygen -i -m PKCS8 -f $SSH_KEYS_DIR/*.pub > "$tmp"/root/.ssh/authorized_keys
+cp $SSH_KEYS_DIR/*.rsa $ISO_DIR
+
 rc_add devfs sysinit
 rc_add dmesg sysinit
 rc_add mdev sysinit
@@ -61,12 +67,13 @@ rc_add sysctl boot
 rc_add hostname boot
 rc_add bootmisc boot
 rc_add syslog boot
-rc_add networking boot
-rc_add sshd boot
 rc_add local boot
+rc_add networking boot
+rc_add openvpn boot
+rc_add sshd boot
 
 rc_add mount-ro shutdown
 rc_add killprocs shutdown
 rc_add savecache shutdown
 
-tar -c -C "$tmp" etc | gzip -9n > $HOSTNAME.apkovl.tar.gz
+tar -c -C "$tmp" etc root | gzip -9n > $HOSTNAME.apkovl.tar.gz

@@ -1,10 +1,16 @@
 #!/bin/sh
 BOOTR_CONFDIR_LOCAL="/etc/bootr/configs"
 BOOTR_CONFDIR_CDROM="/media/cdrom/configs"
+AUTHORIZED_KEYS="/root/.ssh/authorized_keys"
+
+cp $BOOTR_CONFDIR_LOCAL/authorized_keys $AUTHORIZED_KEYS
 cp $BOOTR_CONFDIR_LOCAL/openvpn/* /etc/openvpn/
 cp $BOOTR_CONFDIR_LOCAL/network/* /etc/network/
 cp $BOOTR_CONFDIR_CDROM/openvpn/* /etc/openvpn/
 cp $BOOTR_CONFDIR_CDROM/network/* /etc/network/
+cp $BOOTR_CONFDIR_CDROM/authorized_keys $AUTHORIZED_KEYS
+
+chmod 0600 $AUTHORIZED_KEYS
 
 rc-service networking restart
-rc-service openvpn start
+rc-service openvpn restart

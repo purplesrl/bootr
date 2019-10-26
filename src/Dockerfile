@@ -4,6 +4,7 @@ MAINTAINER George Tabacar <g.tabacar@purplesrl.com>
 
 ENV ALPINE_VERSION 3.10
 ENV ARCH x86_64
+ENV PACKAGER "Bootr <bootr@bootr.org>"
 
 RUN apk add --update \
     alpine-sdk \
@@ -18,6 +19,7 @@ RUN apk add --update \
     mtools \
     dosfstools \
     grub-efi \
+    openssh \
     nano
 
 RUN adduser build -S -G abuild -h /build -s /bin/sh
