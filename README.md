@@ -3,6 +3,10 @@ A rescue OS based on Alpine Linux
 
 bootr is designed for rescue situations when you are not able to access a remote system normally, it can be used to boot, attempt an Internet connection and start an OpenVPN client to a remote server from which you can connect back using SSH.
 
+## Building
+
+[![asciicast](https://asciinema.org/a/nD9xAS1ozh2TFrj2Fx4nYZilh.png)](https://asciinema.org/a/nD9xAS1ozh2TFrj2Fx4nYZilh?autoplay=1)
+
 ## Configuration
 
 ### Authorized keys
