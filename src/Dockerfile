@@ -30,9 +30,15 @@ RUN abuild-keygen -i -a \
 
 ENV ALPINE_REPO http://dl-cdn.alpinelinux.org/alpine/v$ALPINE_VERSION/main/
 
+RUN mkdir -p /build/configs/network /build/configs/openvpn /build/configs/startup
+
 COPY --chown=build:abuild mkimg.bootr.sh /build/aports/scripts/mkimg.bootr.sh
 COPY --chown=build:abuild genapkovl-bootr.sh /build/aports/scripts/genapkovl-bootr.sh
 COPY --chown=build:abuild mkiso.bootr.sh /build/aports/scripts/mkiso.bootr.sh
+COPY --chown=build:abuild bootstrap.start /build/aports/scripts/bootstrap.start
+COPY --chown=build:abuild configs/network/ /build/configs/network/
+COPY --chown=build:abuild configs/openvpn/ /build/configs/openvpn/
+COPY --chown=build:abuild configs/startup/ /build/configs/startup/
 
 RUN chmod +x /build/aports/scripts/* \
     && mkdir -p /build/iso

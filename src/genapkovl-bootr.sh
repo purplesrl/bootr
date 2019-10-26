@@ -1,6 +1,8 @@
 #!/bin/sh -e
 
 HOSTNAME="bootr-$ALPINE_VERSION-$ARCH"
+BOOTSTRAP="/build/aports/scripts/bootstrap.start"
+BOOTR_CONFIGS="/build/configs"
 
 cleanup() {
 	rm -rf "$tmp"
@@ -28,20 +30,21 @@ makefile root:root 0644 "$tmp"/etc/hostname <<EOF
 $HOSTNAME
 EOF
 
-mkdir -p "$tmp"/etc/network
-makefile root:root 0644 "$tmp"/etc/network/interfaces <<EOF
-auto lo
-iface lo inet loopback
+mkdir -p "$tmp"/etc/local.d
+mkdir -p "$tmp"/etc/bootr
 
-auto eth0
-iface eth0 inet dhcp
-EOF
+cp $BOOTSTRAP "$tmp"/etc/local.d
+cp -r $BOOTR_CONFIGS "$tmp"/etc/bootr
+
+mkdir -p "$tmp"/etc/network
+mkdir -p "$tmp"/etc/openvpn
 
 mkdir -p "$tmp"/etc/apk
 makefile root:root 0644 "$tmp"/etc/apk/world <<EOF
 alpine-base
 nano
 openvpn
+openssh
 EOF
 
 echo $ALPINE_REPO >> "$tmp/etc/apk/repositories"
@@ -59,6 +62,8 @@ rc_add hostname boot
 rc_add bootmisc boot
 rc_add syslog boot
 rc_add networking boot
+rc_add sshd boot
+rc_add local boot
 
 rc_add mount-ro shutdown
 rc_add killprocs shutdown
