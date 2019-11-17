@@ -1,0 +1,12 @@
+services:
+  - docker
+
+before_install:
+  - mkdir -p iso configs/network configs/openvpn configs/startup
+  - chmod 0757 iso
+  - rm -rf src/configs
+  - cp -rap configs src/configs
+  - docker build -t bootr:latest src
+
+script:
+  docker run --name bootr -v $(pwd)/iso:/build/iso -ti bootr:latest
