@@ -10,3 +10,13 @@ before_install:
 
 script:
   docker run --name bootr -v $(pwd)/iso:/build/iso -ti bootr:latest
+
+deploy:
+  edge: true
+  provider: releases
+  skip_cleanup: true
+  file_glob: true
+  file: iso/*
+  api_key: $GITHUB_TOKEN
+  on:
+    tags: true
